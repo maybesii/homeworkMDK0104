@@ -4,82 +4,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.paint.*?>
-
 <?import java.net.URL?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
 
 <TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-         fx:controller="com.ivanov.numeralsystem.HelloController" style="-fx-background-color: #23233a; ">
+         fx:controller="com.ivanov.numeralsystem.controller.MainController">
     <stylesheets>
         <URL value="@style.css"/>
     </stylesheets>
 
-    <Tab text="Конвертер" style="-fx-text-fill: white;">
+    <Tab text="Конвертер">
         <content>
-            <VBox spacing="20" style="-fx-background-color: #23233a;" alignment="TOP_CENTER">
-                <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
-                </padding>
+            <VBox spacing="20" alignment="TOP_CENTER" styleClass="main-pane">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
-                <Text text="Конвертер систем счисления"
-                      style="-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #b39ddb;"/>
-
-                <HBox spacing="15" alignment="CENTER">
-                    <VBox spacing="5">
-                        <Label text="Исходное число:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <TextField fx:id="inputNumber" promptText="Введите число"
-                                   style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7; -fx-prompt-text-fill: #7e57c2; -fx-border-color: #7e57c2; -fx-border-radius: 8; -fx-border-width: 1;"/>
-                    </VBox>
-
-                    <VBox spacing="5">
-                        <Label text="Из системы:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <ComboBox fx:id="fromBase"
-                                  style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7;">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="2"/>
-                                    <String fx:value="10"/>
-                                    <String fx:value="16"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </VBox>
-
-                    <VBox spacing="5">
-                        <Label text="В систему:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <ComboBox fx:id="toBase"
-                                  style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7;">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="2"/>
-                                    <String fx:value="10"/>
-                                    <String fx:value="16"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </VBox>
-
-                    <Button text="Конвертировать"
-                            style="-fx-background-color: #7e57c2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(126,87,194,0.3), 8, 0, 0, 2); -fx-padding: 8 16;"
-                            onAction="#convertNumber"/>
+                <HBox alignment="CENTER" spacing="10">
+                    <Text text="Конвертер систем счисления" styleClass="section-title"/>
+                    <Text text="⇄" styleClass="icon-text"/>
                 </HBox>
 
-                <VBox spacing="10" alignment="CENTER">
-                    <Label text="Результат:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                    <TextField fx:id="resultField" editable="false"
-                               style="-fx-background-radius: 8; -fx-font-weight: bold; -fx-alignment: center; -fx-background-color: #23233a; -fx-text-fill: #b39ddb; -fx-border-color: #7e57c2; -fx-border-radius: 8; -fx-border-width: 1;"/>
+                <GridPane hgap="15" vgap="10" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT"/>
+                        <ColumnConstraints halignment="LEFT"/>
+                    </columnConstraints>
+
+                    <Label text="Исходное число:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="inputNumber" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Из системы:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <ComboBox fx:id="fromBase" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="В систему:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <ComboBox fx:id="toBase" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                </GridPane>
+
+                <Button text="Конвертировать →" styleClass="button" onAction="#convertNumber"/>
+
+                <VBox spacing="10" alignment="CENTER" styleClass="result-box">
+                    <Label text="Результат:" styleClass="label"/>
+                    <TextField fx:id="resultField" styleClass="result-field"/>
                 </VBox>
 
                 <VBox spacing="5" alignment="CENTER">
-                    <Label text="Битовое представление (8 бит + знак):" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                    <HBox fx:id="bitContainer" spacing="4" alignment="CENTER">
-
-                    </HBox>
-                    <Label text="Первый бит - знак (0 - положительное, 1 - отрицательное)"
-                           style="-fx-font-style: italic; -fx-text-fill: #7e57c2;"/>
+                    <Label text="Битовое представление (8 бит + знак):" styleClass="label"/>
+                    <HBox fx:id="bitContainer" spacing="4" alignment="CENTER"/>
+                    <Label text="Первый бит - знак (0 - положительное, 1 - отрицательное)" styleClass="hint-label"/>
                 </VBox>
             </VBox>
         </content>
@@ -87,69 +56,43 @@
 
     <Tab text="Калькулятор">
         <content>
-            <VBox spacing="20" style="-fx-background-color: #23233a;" alignment="TOP_CENTER">
-                <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
-                </padding>
+            <VBox spacing="20" alignment="TOP_CENTER" styleClass="main-pane">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
-                <Text text="Калькулятор систем счисления"
-                      style="-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #b39ddb;"/>
-
-                <HBox spacing="15" alignment="CENTER">
-                    <VBox spacing="5">
-                        <Label text="Первое число:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <TextField fx:id="num1" promptText="Введите число"
-                                   style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7; -fx-prompt-text-fill: #7e57c2; -fx-border-color: #7e57c2; -fx-border-radius: 8; -fx-border-width: 1;"/>
-                    </VBox>
-
-                    <VBox spacing="5">
-                        <Label text="Система:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <ComboBox fx:id="calcBase"
-                                  style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7;">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="2"/>
-                                    <String fx:value="10"/>
-                                    <String fx:value="16"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </VBox>
-
-                    <VBox spacing="5">
-                        <Label text="Операция:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <ComboBox fx:id="operation"
-                                  style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7;">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="+"/>
-                                    <String fx:value="-"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </VBox>
-
-                    <VBox spacing="5">
-                        <Label text="Второе число:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                        <TextField fx:id="num2" promptText="Введите число"
-                                   style="-fx-background-radius: 8; -fx-background-color: #23233a; -fx-text-fill: #e1bee7; -fx-prompt-text-fill: #7e57c2; -fx-border-color: #7e57c2; -fx-border-radius: 8; -fx-border-width: 1;"/>
-                    </VBox>
-
-                    <Button text="Вычислить"
-                            style="-fx-background-color: #7e57c2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(126,87,194,0.3), 8, 0, 0, 2); -fx-padding: 8 16;"
-                            onAction="#calculate"/>
+                <HBox alignment="CENTER" spacing="10">
+                    <Text text="Калькулятор систем счисления" styleClass="section-title"/>
+                    <Text text="⌨" styleClass="icon-text"/>
                 </HBox>
 
-                <VBox spacing="10" alignment="CENTER">
-                    <Label text="Результат:" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                    <TextField fx:id="calcResult" editable="false"
-                               style="-fx-background-radius: 8; -fx-font-weight: bold; -fx-alignment: center; -fx-background-color: #23233a; -fx-text-fill: #b39ddb; -fx-border-color: #7e57c2; -fx-border-radius: 8; -fx-border-width: 1;"/>
+                <GridPane hgap="15" vgap="10" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT"/>
+                        <ColumnConstraints halignment="LEFT"/>
+                    </columnConstraints>
+
+                    <Label text="Первое число:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="num1" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="Система:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <ComboBox fx:id="calcBase" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="Операция:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <ComboBox fx:id="operation" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="Второе число:" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <TextField fx:id="num2" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+
+                <Button text="Вычислить =" styleClass="button" onAction="#calculate"/>
+
+                <VBox spacing="10" alignment="CENTER" styleClass="result-box">
+                    <Label text="Результат:" styleClass="label"/>
+                    <TextField fx:id="calcResult" styleClass="result-field"/>
                 </VBox>
 
                 <VBox spacing="5" alignment="CENTER">
-                    <Label text="Битовое представление результата (8 бит + знак):" style="-fx-font-weight: bold; -fx-text-fill: #b39ddb;"/>
-                    <HBox fx:id="calcBitContainer" spacing="4" alignment="CENTER">
-                    </HBox>
+                    <Label text="Битовое представление результата:" styleClass="label"/>
+                    <HBox fx:id="calcBitContainer" spacing="4" alignment="CENTER"/>
                 </VBox>
             </VBox>
         </content>

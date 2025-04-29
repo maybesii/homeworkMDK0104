@@ -5,4 +5,6 @@ module com.ivanov.numeralsystem {
 
     opens com.ivanov.numeralsystem to javafx.fxml;
     exports com.ivanov.numeralsystem;
+    exports com.ivanov.numeralsystem.controller;
+    opens com.ivanov.numeralsystem.controller to javafx.fxml;
 }
